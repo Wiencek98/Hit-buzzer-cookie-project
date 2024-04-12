@@ -4,10 +4,41 @@ let level = 1;
 
 document.getElementById('buzzer').addEventListener('click', function(){
     // this reduce chances by 1
+    throwCookie();
+});
+
+document.addEventListener('click', function(event){
+    if(event.target.id === "buzzer")
+    return;
+    throwCookie();
+});
+
+function throwCookie(){
     chances--;
+    if (chances === 0) {
+        endGame();
+        return;
+    }
+    if (cookieHitsBuzzer()) {
+        cookieCount++;
+    document.getElementById('cookieCount').innerText = cookieCount;
+        if(Math.random() <  0.5) {
+            // increase level
+            level++;
+            // updates chances
+            chances = 3;
+            alert("Congratulations! You hit the buzzer with a cookie and reached level" + level + "!")
+
+    document.getElementById("chances").innerText = chances;
+
+
+        }
+    }
+};
+
 
     //no more chances end the game
-    if(changes === 0) {
+    if(chances === 0) {
         endGame();
         return;
     }
@@ -37,5 +68,3 @@ function endGame() {
     document.getElementById("chances").innerText = changed;
 }
 
-
-endGame()
